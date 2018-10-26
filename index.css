@@ -4,9 +4,10 @@ nav a img, #irimee-logo
     height: auto;
 }
 
-html
+html, body
 {
     background-color: rgb(12, 49, 85);
+    height: 100%;
 }
 
 /* #station_details > .row:nth-of-type(even) , #art_details > .row:nth-of-type(even){
@@ -25,7 +26,7 @@ html
 {
     border: 1px solid black;
     padding: 0;
-    height: 850px;
+    height: 100%;
 }
 
 /* body{
@@ -35,10 +36,10 @@ html
 #floating-menu
 {
     position: absolute;
-    background-color: rgba(238, 246, 255, 0.5);
+    background-color: rgba(238, 246, 255, 0.842);
     /* border: 1px solid aqua; */
     z-index: 1;
-    width: 15%;
+    width: 400px;
     top: 30%;
     left: 1%;
 }
@@ -47,19 +48,24 @@ html
 {
     background-color: rgba(238, 246, 255, 0.8);
     position: absolute;
-    max-width: 50%;
+    /* max-width: 50%; */
     /* left: 50%; */
-    right: 5%;
-    /* top: 5%; */
+    right: 1%;
+    top: 1%;
     z-index: 0;
 }
 
 #details-div-close
 {
     position: absolute;
-    right: 5%;
-    top: 7%;
+    right: 10px;
+    top: 40px;
     z-index: 1;
+}
+
+#details-div table
+{
+    max-width: 100%;
 }
 
 .floating{
@@ -70,3 +76,42 @@ html
 {
     background-color: rgba(238, 246, 255, 1);
 } */
+
+#floating-IR-icon
+{
+    position: absolute;
+    height: 10%;
+    left: 1%;
+    top: 88%;
+    z-index: 1;
+}
+
+#floating-irimee-icon
+{
+    position: absolute;
+    height: 10%;
+    left: 125px;
+    top: 88%;
+    z-index: 1;
+}
+
+#floating-rsam-text
+{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    text-shadow: 0px 0px 20px floralwhite,
+                1px 1px 20px lightslategray;
+    z-index: 1;
+}
+
+.ol-zoom
+{
+    top: 20%;
+    left: 1%;
+}
+
+.layer-switcher
+{
+    top: 20%;
+}

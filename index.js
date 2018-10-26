@@ -490,6 +490,15 @@ $(document).ready(function () {
             })
             // document.querySelector("#nodelist_ARTs").innerHTML = '<iframe seamless src="' + url + '"></iframe>';
         }
+
+        var width_station_table = $("#station_details_table").width();
+        var width_art_table = $("#art_details_table").width();
+        var width_details_div = $("#details-div").width();
+        var width_to_compare = width_art_table > width_station_table ? width_art_table: width_station_table;
+        if (width_to_compare > width_details_div)
+        {
+            $("#details-div").width(width_to_compare + 100);
+        }
     });
 
 
