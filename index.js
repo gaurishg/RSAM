@@ -244,7 +244,7 @@ $(document).ready(function () {
         // overlays: [overlay],
         view: new ol.View({
             center: ol.proj.fromLonLat([82.41, 18.82]),
-            zoom: 5
+            zoom: 6
         })
     });
 
@@ -255,6 +255,7 @@ $(document).ready(function () {
         // document.getElementById('nodelist_stations').innerHTML = "Loading... please wait...";
         var view = map.getView();
         var viewResolution = view.getResolution();
+        // document.querySelector("#details-div").style.zIndex = "1";
         // var row = document.createElement('div');
         // row.setAttribute('class', 'row');
         // document.body.appendChild(row);
@@ -265,139 +266,117 @@ $(document).ready(function () {
             evt.coordinate, viewResolution, view.getProjection(),
             { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 50, 'QUERY_LAYERS': ['stations_view',] });
         if (url) {
-            console.log(url);
+            // console.log(url);
             $.getJSON(url, function (result) {
                 var station_details_element = document.querySelector("#station_details");
-                station_details_element.innerHTML = '';
+                station_details_element.innerHTML = '<div class="row"><div class="col"><h4>Stations</h4></div></div>';
                 if (result.numberReturned > 0) {
-                    console.log(result);
-
+                    // console.log(result);
+                    document.querySelector("#details-div").style.zIndex = "1";
                     // Add heading station
-                    var row = document.createElement("div");
-                    $(row).addClass("row");
-                    $(row).addClass("align-items-center");
-                    var col = document.createElement("div");
-                    $(col).addClass("col").addClass("align-self-center");
-                    var heading = document.createElement("h4");
-                    var textNode = document.createTextNode("Stations");
+                    var station_details_element = document.querySelector("#station_details");
+                    var table = document.createElement("table");
+                    table.setAttribute("class", "table table-striped table-light");
+                    table.setAttribute("id", "station_details_table");
+                    var thead = document.createElement("thead");
+                    var tr = document.createElement("tr");
 
-                    station_details_element.appendChild(row);
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
+                    station_details_element.appendChild(table);
+                    table.appendChild(thead);
+                    thead.appendChild(tr);
+                    
+                    var th = document.createElement("th");
+                    th.setAttribute("scope", "col");
+                    $(th).addClass("thead-dark");
+                    var textNode = document.createTextNode("Sr.No.");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    // Add headers
-                    row = document.createElement("div");
-                    $(row).addClass("row");
-                    station_details_element.appendChild(row);
-
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
-                    textNode = document.createTextNode("Sr.No.");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
-
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
                     textNode = document.createTextNode("Name");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
                     textNode = document.createTextNode("Code");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
                     textNode = document.createTextNode("Division");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
-
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
+                    
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
                     textNode = document.createTextNode("Zone");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
+                    textNode = document.createTextNode("State");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
+
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
                     textNode = document.createTextNode("Category");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
-                    textNode = document.createTextNode("Cleaning Contract by ENHM");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(textNode);
+                    var tbody = document.createElement("tbody");
+                    table.appendChild(tbody);
+                    for(var i=0; i<result.numberReturned; ++i)
+                    {
+                        var station = result.features[i].properties;
+                        tr = document.createElement("tr");
+                        tbody.appendChild(tr);
 
-                    for (var i = 0; i < result.numberReturned; ++i) {
-                        var feature = result.features[i].properties;
-                        console.log(feature);
-                        row = document.createElement("div");
-                        $(row).addClass("row");
-                        // $(row).addClass("align-items-center")
-                        station_details_element.appendChild(row);
+                        textNode = document.createTextNode((i + 1));
+                        th = document.createElement("th");
+                        th.setAttribute("scope", "row");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
 
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(i + 1);
-                        row.appendChild(col);
-                        col.appendChild(textNode);
+                        textNode = document.createTextNode(station['name']);
+                        th = document.createElement("td");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
 
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(feature['name']);
-                        row.appendChild(col);
-                        col.appendChild(textNode);
+                        textNode = document.createTextNode(station['code']);
+                        th = document.createElement("td");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
+                        
+                        textNode = document.createTextNode(station['division_name']);
+                        th = document.createElement("td");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
+                        
+                        textNode = document.createTextNode(station['zone_code']);
+                        th = document.createElement("td");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
+                        
+                        textNode = document.createTextNode(station['state_name']);
+                        th = document.createElement("td");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
 
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(feature['code']);
-                        row.appendChild(col);
-                        col.appendChild(textNode);
-
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(feature['division_name']);
-                        row.appendChild(col);
-                        col.appendChild(textNode);
-
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(feature['zone_code']);
-                        row.appendChild(col);
-                        col.appendChild(textNode);
-
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(feature['category']);
-                        row.appendChild(col);
-                        col.appendChild(textNode);
-
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        textNode = document.createTextNode(feature['cleaning_contract_by_enhm'] ? "Yes" : "NO");
-                        row.appendChild(col);
-                        col.appendChild(textNode);
+                        textNode = document.createTextNode(station['category']);
+                        th = document.createElement("td");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
                     }
                 } // if(result.numberReturned > 0) ends
+                else
+                {
+                    document.querySelector("#details-div").style.zIndex = "0";
+                }
 
             })
             //   document.getElementById('nodelist_stations').innerHTML = '<iframe seamless src="' + url + '"></iframe>';
@@ -408,11 +387,12 @@ $(document).ready(function () {
         url = source.getGetFeatureInfoUrl(evt.coordinate, viewResolution, view.getProjection(),
             { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 50, 'QUERY_LAYERS': ['Accident_Relief_Trains'] });
         if (url) {
-            console.log(url);
+            // console.log(url);
             $.getJSON(url, function (result) {
                 var art_details_element = document.querySelector("#art_details");
                 art_details_element.innerHTML = '';
                 if (result.numberReturned > 0) {
+                    document.querySelector("#details-div").style.zIndex = "1";
                     // console.log(result)
                     // console.log(typeof(result))
                     // Add row to show heading ARTs
@@ -421,88 +401,89 @@ $(document).ready(function () {
                     var col = document.createElement("div");
                     $(col).addClass("col");
                     var heading = document.createElement("h4");
-                    var text = document.createTextNode("ARTs");
+                    var textNode = document.createTextNode("ARTs");
                     art_details_element.appendChild(row);
                     row.appendChild(col);
                     col.appendChild(heading);
-                    heading.appendChild(text);
+                    heading.appendChild(textNode);
 
                     // Add headers
-                    row = document.createElement("div");
-                    $(row).addClass("row");
-                    art_details_element.appendChild(row);
+                    var table = document.createElement("table");
+                    $(table).addClass("table table-striped table-light");
+                    table.setAttribute("id", "art_details_table");
+                    var thead = document.createElement("thead");
+                    var tr = document.createElement("tr");
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
-                    text = document.createTextNode("Sr.No.");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(text);
+                    art_details_element.appendChild(table);
+                    table.appendChild(thead);
+                    thead.appendChild(tr);
+                    
+                    var th = document.createElement("th");
+                    th.setAttribute("scope", "col");
+                    var textNode = document.createTextNode("Sr.No.");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
-                    text = document.createTextNode("Zone");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(text);
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
+                    textNode = document.createTextNode("Zone");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
-                    text = document.createTextNode("Division");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(text);
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
+                    textNode = document.createTextNode("Division");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    col = document.createElement("div");
-                    $(col).addClass("col");
-                    heading = document.createElement("h5");
-                    text = document.createTextNode("Type");
-                    row.appendChild(col);
-                    col.appendChild(heading);
-                    heading.appendChild(text);
+                    th = document.createElement("th");
+                    th.setAttribute("scope", "col");
+                    textNode = document.createTextNode("Type");
+                    th.appendChild(textNode);
+                    tr.appendChild(th);
 
-                    for (var i = 0; i < result.numberReturned; ++i) {
-                        var feature = result.features[i].properties;
-                        console.log(feature);
-                        row = document.createElement("div");
-                        $(row).addClass("row");
-                        art_details_element.appendChild(row);
+                    var tbody = document.createElement("tbody");
+                    table.appendChild(tbody);
+                    for(var i=0; i<result.numberReturned; ++i)
+                    {
+                        var art = result.features[i].properties;
+                        tr = document.createElement("tr");
+                        tbody.appendChild(tr);
 
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        text = document.createTextNode(i + 1);
-                        row.appendChild(col);
-                        col.appendChild(text);
+                        textNode = document.createTextNode((i + 1));
+                        th = document.createElement("th");
+                        th.setAttribute("scope", "row");
+                        th.appendChild(textNode);
+                        tr.appendChild(th);
 
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        text = document.createTextNode(feature['Zone']);
-                        row.appendChild(col);
-                        col.appendChild(text);
+                        textNode = document.createTextNode(art['Zone']);
+                        var td = document.createElement("td");
+                        td.appendChild(textNode);
+                        tr.appendChild(td);
 
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        text = document.createTextNode(feature['Division']);
-                        row.appendChild(col);
-                        col.appendChild(text);
-
-                        col = document.createElement("div");
-                        $(col).addClass("col");
-                        var textContent = null;
-                        var arme_scale_i = feature['ARME_Scale'];
-                        if (arme_scale_i == 'N') {
-                            textContent = feature['Class'] + " Class ART";
+                        textNode = document.createTextNode(art['Division']);
+                        td = document.createElement("td");
+                        td.appendChild(textNode);
+                        tr.appendChild(td);
+                        
+                        var art_type = null;
+                        if(art["ARME_Scale"] === "Y")
+                        {
+                            art_type = art["SPART_Conv"]==="SPART"?"SPARMV":"Conventional ARMV";
                         }
-                        else {
-                            textContent = feature['SPART_Conv'] + " ARMV";
+                        else
+                        {
+                            art_type = "Class " + art["Class"] + " ART";
                         }
-                        text = document.createTextNode(textContent);
-                        row.appendChild(col);
-                        col.appendChild(text);
+                        textNode = document.createTextNode(art_type);
+                        td = document.createElement("td");
+                        td.appendChild(textNode);
+                        tr.appendChild(td);
                     }
+                }
+                else
+                {
+                    document.querySelector("#details-div").style.zIndex = "0";
                 }
 
 
@@ -534,4 +515,9 @@ $(document).ready(function () {
             }
         })
     });
+
+    // Add event listener to details close button
+    document.querySelector("#details-div-close").addEventListener("click", function(event){
+        document.querySelector("#details-div").style.zIndex = "0";
+    })
 })

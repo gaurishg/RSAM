@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RSAM</title>
 
+    <!-- Darkly -->
+    <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
     <!-- Bootstrap CSS -->
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet" />
@@ -19,6 +21,9 @@
     <link href="https://unpkg.com/ol-layerswitcher@3.0.0/src/ol-layerswitcher.css" rel="stylesheet" />
     <!--ol-layerswitcher-->
     <script src="https://unpkg.com/ol-layerswitcher@3.0.0"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
     <!-- My CSS -->
     <link href="./index.css" rel="stylesheet" />
 </head>
@@ -38,74 +43,105 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">RSAM</a>
+                    <a href="#" class="nav-link">Rolling Stock Asset Management (Demo)</a>
                 </li>
             </ul>
+
+            <img src="logoirimee100.png" alt="IRIMEE Logo" class="mr-10" id="irimee-logo">
         </div>
     </nav>
+
+    <!-- Floating Menu -->
+    <div class="floating" id="floating-menu">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Control Area -->
+                <div class="col">
+                    <!-- Form start -->
+                    <form>
+                        <!-- Stations Category Starts -->
+                        <fieldset class="form-group">
+                            <legend>Category</legend>
+                            <div class="form-row">
+                                <!-- A1 Category Stations Checkbox-->
+                                <div class="form-check form-check-inline col-5 col-sm-4 col-md-3 col-lg-2">
+                                    <input class="form-check-input" id="a1_stations" name="category" type="checkbox"
+                                        value="A1" />
+                                    <label class="form-check-label" for="a1_stations">
+                                        A1
+                                    </label>
+                                </div>
+                                <!-- A Category Stations Checkbox-->
+                                <div class="form-check form-check-inline col-5 col-sm-4 col-md-3 col-lg-2">
+                                    <input class="form-check-input" id="a_stations" name="category" type="checkbox"
+                                        value="A" />
+                                    <label class="form-check-label" for="a_stations">
+                                        A
+                                    </label>
+                                </div>
+                                <!-- Normal Category Stations Checkbox-->
+                                <div class="form-check form-check-inline col-5 col-sm-4 col-md-3 col-lg-2">
+                                    <input class="form-check-input" id="other_stations" name="category" type="checkbox"
+                                        value="" />
+                                    <label class="form-check-label" for="other_stations">
+                                        Other
+                                    </label>
+                                </div>
+                            </div> <!-- Form row ends -->
+                        </fieldset>
+
+                        <!-- Station Category ends-->
+                        <!-- Zones start-->
+                        <fieldset class="form-group">
+                            <legend>
+                                Zone
+                            </legend>
+                            <select name="zone_code" id="zone_select" class="form-control enter-zones-here">
+                                <option value="No_Select">--Select Zone--</option>
+                            </select>
+                        </fieldset>
+                        <!-- Zones end -->
+
+                        <!-- Divisions start -->
+                        <fieldset>
+                            <legend>Divisions</legend>
+                            <div class="form-row" id="division_checkboxes">
+
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- Control Area Column ends -->
+            </div>
+        </div>
+    </div>
+    <!-- Floating Menu ends -->
+
+    <!-- Details div -->
+    <div class="floating" id="details-div">
+        <div class="container-fluid">
+            <div class="btn btn-dark" id="details-div-close">
+                X
+            </div>
+            <div class="row my-5 align-items-center" id="stations_detail_row">
+                <div class="col" id="station_details">
+
+                </div>
+            </div>
+
+            <div class="row" id="art_details_row">
+                <div class="col" id="art_details">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Details div ends -->
 
     <!-- Main container -->
     <div class="container-fluid h-100">
         <!-- Main row -->
         <div class="row h-100" id="main_row">
-            <!-- Control Area -->
-            <div class="col-12 col-md-4">
-                <!-- Form start -->
-                <form>
-                    <!-- Stations Category Starts -->
-                    <fieldset class="form-group">
-                        <legend>Category</legend>
-                        <div class="form-row">
-                            <!-- A1 Category Stations Checkbox-->
-                            <div class="form-check form-check-inline col-5 col-sm-4 col-md-3 col-lg-2">
-                                <input class="form-check-input" id="a1_stations" name="category" type="checkbox"
-                                    value="A1" />
-                                <label class="form-check-label" for="a1_stations">
-                                    A1
-                                </label>
-                            </div>
-                            <!-- A Category Stations Checkbox-->
-                            <div class="form-check form-check-inline col-5 col-sm-4 col-md-3 col-lg-2">
-                                <input class="form-check-input" id="a_stations" name="category" type="checkbox"
-                                    value="A" />
-                                <label class="form-check-label" for="a_stations">
-                                    A
-                                </label>
-                            </div>
-                            <!-- Normal Category Stations Checkbox-->
-                            <div class="form-check form-check-inline col-5 col-sm-4 col-md-3 col-lg-2">
-                                <input class="form-check-input" id="other_stations" name="category" type="checkbox"
-                                    value="" />
-                                <label class="form-check-label" for="other_stations">
-                                    Other
-                                </label>
-                            </div>
-                        </div> <!-- Form row ends -->
-                    </fieldset>
-
-                     <!-- Station Category ends-->
-                    <!-- Zones start-->
-                    <fieldset class="form-group">
-                        <legend>
-                            Zone
-                        </legend>
-                        <select name="zone_code" id="zone_select" class="form-control enter-zones-here">
-                            <option value="No_Select">--Select Zone--</option>
-                        </select>
-                    </fieldset>
-                    <!-- Zones end -->
-
-                    <!-- Divisions start -->
-                    <fieldset>
-                        <legend>Divisions</legend>
-                        <div class="form-row" id="division_checkboxes">
-
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-            <!-- Control Area Column ends -->
-
             <!-- Map element -->
             <div class="col col-md map align-self-center" id="map"></div>
         </div>
@@ -117,17 +153,6 @@
             <div id="popup-content"></div>
         </div>
 
-        <div class="row my-5 align-items-center" id="stations_detail_row">
-            <div class="col" id="station_details">
-
-            </div>
-        </div>
-
-        <div class="row" id="art_details_row">
-            <div class="col" id="art_details">
-
-            </div>
-        </div>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

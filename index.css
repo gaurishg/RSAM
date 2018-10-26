@@ -1,11 +1,15 @@
-nav a img
+nav a img, #irimee-logo
 {
-    max-width: 50px;
+    max-width: 70px;
     height: auto;
 }
 
+html
+{
+    background-color: rgb(12, 49, 85);
+}
 
-#station_details > .row:nth-of-type(even) , #art_details > .row:nth-of-type(even){
+/* #station_details > .row:nth-of-type(even) , #art_details > .row:nth-of-type(even){
     background-color: rgb(124, 252, 209);
 }
 
@@ -15,4 +19,54 @@ nav a img
 
 #station_details .col, #art_details .col{
     border-right: 1px solid black;
+} */
+
+#map
+{
+    border: 1px solid black;
+    padding: 0;
+    height: 850px;
 }
+
+/* body{
+    position: relative;
+} */
+
+#floating-menu
+{
+    position: absolute;
+    background-color: rgba(238, 246, 255, 0.5);
+    /* border: 1px solid aqua; */
+    z-index: 1;
+    width: 15%;
+    top: 30%;
+    left: 1%;
+}
+
+#details-div
+{
+    background-color: rgba(238, 246, 255, 0.8);
+    position: absolute;
+    max-width: 50%;
+    /* left: 50%; */
+    right: 5%;
+    /* top: 5%; */
+    z-index: 0;
+}
+
+#details-div-close
+{
+    position: absolute;
+    right: 5%;
+    top: 7%;
+    z-index: 1;
+}
+
+.floating{
+    box-shadow: 10px 10px 25px 5px lightslategrey;
+    border-radius: 5px;
+}
+/* #station_details .row:nth-of-type(1) .col, #art_details .row:nth-of-type(1) .col
+{
+    background-color: rgba(238, 246, 255, 1);
+} */
